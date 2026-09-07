@@ -2,7 +2,7 @@
   "name": "api-tarefas",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -14,5 +14,8 @@
     "mysql2": "^3.24.3",
     "nodemon": "^3.1.14",
     "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.5"
   }
 }
