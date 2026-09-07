@@ -1,5 +1,5 @@
 const express = require("express")
-const { home, listarTarefas, criarTarefa, excluirTarefa, atualizarTarefa,Tarefa } = require("../controllers/tarefasController")
+const { home, listarTarefas, criarTarefa, excluirTarefa, atualizarTarefa } = require("../controllers/tarefasController")
 
 const router = express.Router()
 
