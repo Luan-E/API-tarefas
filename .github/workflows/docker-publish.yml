@@ -1,0 +1,39 @@
+name: Docker build & push
+
+on:
+    push:
+        branches:
+            - backend
+
+env:
+    IMAGE: ghcr.io/luan-e/api-tarefas
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 18
+          - run: npm install --omit=dev
+          - run: npm test
+    
+    build-and-push:
+        needs: test
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: Login GHCR
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Build
+              run: docker build -t $IMAGE:latest -t $IMAGE:${GITHUB_SHA::7} .
+            - name: push
+              run: docker push $IMAGE:latest && docker push $IMAGE:${GITHUB_SHA::7}
